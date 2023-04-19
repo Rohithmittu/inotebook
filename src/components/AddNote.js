@@ -20,7 +20,7 @@ const AddNote = () => {
   };
 
   return (
-    <div className='container' my-3>
+    <div className='container my-3'>
       <h3>Add a note</h3>
       <form className='my-3'>
         <div className='mb-3'>
