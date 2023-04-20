@@ -84,6 +84,7 @@ const Notes = () => {
                     value={note.etitle}
                     aria-describedby='emailHelp'
                     onChange={onChange}
+                    minLength={5} required
                   />
                 </div>
                 <div className='mb-3'>
@@ -97,6 +98,7 @@ const Notes = () => {
                     name='edescription'
                     value={note.edescription}
                     onChange={onChange}
+                    minLength={5} required
                   />
                 </div>
                 <div className='mb-3'>
@@ -110,6 +112,7 @@ const Notes = () => {
                     name='etag'
                     value={note.etag}
                     onChange={onChange}
+                                      minLength={5} required
                   />
                 </div>
               </form>
@@ -117,12 +120,14 @@ const Notes = () => {
             <div className='modal-footer'>
               <button
               ref={refclose}
+
                 type='button'
                 className='btn btn-secondary'
                 data-bs-dismiss='modal'>
                 Close
               </button>
               <button
+              disable={note.etitle.length < 5  || note.edescription.length < 5 }
                 onClick={handleClick}
                 type='button'
                 className='btn btn-primary'>
@@ -134,6 +139,9 @@ const Notes = () => {
       </div>
       <div className='row my-3'>
         <h3>Your notes</h3>
+        <div className="container mx-2">
+        {notes.length===0 && 'No notes to display'}
+        </div>
         {notes.map(note => {
           return (
             <Noteitem key={note._id} updateNote={updateNote} note={note} />
