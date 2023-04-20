@@ -18,10 +18,11 @@ router.post(
     body("password", "password must atleast 5 character").isLength({ min: 5 }),
   ],
   async (req, res) => {
+    let success = false;
     // If there are no errors,return Bad request and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success, errors: errors.array() });
     }
     try {
       // check whetherthe user emil exits already
@@ -30,7 +31,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ error: "sorry a user with this email already exite" });
+          .json({ success, error: "sorry a user with this email already exite" });
       }
       const salt = await bcrypt.genSalt(10);
       secPassword = await bcrypt.hash(req.body.password, salt);
@@ -48,7 +49,8 @@ router.post(
       const authtoken = jwt.sign(data, JWT_SECRET);
 
       // res.json(user);
-      res.json({ authtoken });
+      success = true
+      res.json({success, authtoken });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Internal server error ");
