@@ -7,14 +7,17 @@ const AddNote = (props) => {
   const [note, setNote] = useState({
     title: "",
     description: "",
-    tag: "",
+    tag: ""
   });
+  
 
   const handleClick = e => {
     e.preventDefault();
     addNote(note.title, note.description, note.tag);
     setNote({ title: "", description: "", tag: "" });
-    props.showAlert("Added succesfully","success")
+    props.showAlert("Added succesfully","success");
+    
+    
   };
 
   const onChange = e => {
@@ -73,7 +76,7 @@ const AddNote = (props) => {
         </div>
 
         <button
-          disable={note.title.length < 5 || note.description.length < 5}
+          disabled={note.title.length<5 || note.description.length<5}
           type='submit'
           className='btn btn-primary'
           onClick={handleClick}>
